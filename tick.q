@@ -20,7 +20,7 @@
 "kdb+tick 2.8 2014.03.12"
 
 /q tick.q SRC [DST] [-p 5010] [-o h]
-system"l tick/",(src:first .z.x,enlist"sym"),".q"
+system"l tick/",(src:first .z.x,enlist"schema"),".q"
 
 if[not system"p";system"p 5010"]
 
