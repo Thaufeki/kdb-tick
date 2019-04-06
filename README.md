@@ -1,18 +1,16 @@
 # kdb+tick
 
-Files previously at code.kx.com/wsvn/kx/kdb+tick
+Repository for Advanced KDB+ CMTP. Files were originally forked from Kx Systems, and modified to spec.
 
 
-## Hot-linking
+## Ports
 
-You are welcome to download and use this code according to the terms of the licence. 
+Tickerplant: 5010
+RDB 1: 		 5011
+RDB 2: 		 5013
+HDB:		 5012
 
-Kx Systems recommends you do not link your application to this repository, 
-which would expose your application to various risks:
+## Start/Stop Python script
 
-- This is not a high-availability hosting service
-- Updates to the repo may break your application 
-- Code refactoring might return 404s to your application
-
-Instead, download code and subject it to the version control and regression testing 
-you use for your application.
+python start.py start all
+python start.py stop all
