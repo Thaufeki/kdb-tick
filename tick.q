@@ -22,7 +22,9 @@
 /q tick.q SRC [DST] [-p 5010] [-o h]
 system"l tick/",(src:first .z.x,enlist"schema"),".q"   // load schema file
 
-.z.po:{0N!"Connection has been opened: ", string x};
+system"l tick/log.q";
+
+userVar:.z.u;
 
 if[not system"p";system"p 5010"] / test comment
 

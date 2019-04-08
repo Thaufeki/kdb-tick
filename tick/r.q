@@ -5,6 +5,8 @@ if[not "w"=first string .z.o;system "sleep 1"];
 
 upd:insert;
 
+userVar:.z.u;
+
 / get the ticker plant and history ports, defaults are 5010,5012
 .u.x:.z.x,(count .z.x)_(":5010";":5012");
 
