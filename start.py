@@ -6,17 +6,23 @@ from subprocess import PIPE, Popen
 from psutil import process_iter
 from signal import SIGTERM
 
+
+
 def all_start():
 
 	# Assuming Python 3
 	dir=input("Enter tick directory: ")
 
 	os.chdir(dir)
-	
+
+	#Needed to launch process without waiting for completion.
 	DETACHED_PROCESS = 0x00000008
 	CREATE_NEW_PROCESS_GROUP = 0x00000200
 	
 	b=input("Batching mode? **0 for non batching, >0 for batching**: ")
+	
+	#Popen is used to launch the processes in the background
+	#Returns variable we aren't interested in (pid), we kill the processes another way
 
 	# Start Tickerplant
 	p = Popen(["q", "tick.q","schema","journal", "-p", "5010", "-t", b], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
@@ -121,6 +127,7 @@ def cep_start():
 	p = Popen(["q", "tick/r.q","-p", "5015"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
+#Change keys of dictionary, returns as list
 def rename_keys(d, keys):
 	return ([(keys.get(k), v) for k, v in d.items()])
 
@@ -148,6 +155,10 @@ def stop():
 				 "rdb2":5013,
 				 "cep":5015		
 	}
+	
+	#Cycle through active processes, extract ports they are bound to.
+	#Send termination signal to ports that we are interested in
+	
 	if s=="all":
 		for proc in process_iter():
 			for conns in proc.connections(kind='inet'):
@@ -193,6 +204,8 @@ def test():
 				 "cep":5015		
 	}
 	
+	# Similar process to stop, but when port is found, dict is updated
+	
 	if v1=="all":
 		for s in dictAll.keys():
 			for proc in process_iter():	
@@ -200,10 +213,12 @@ def test():
 					if conns.laddr[1] == s:
 						dictAll[s]="UP"
 						
+	#Any key with no value is updated to DOWN
 		for s in dictAll.keys():
 			if dictAll[s]=="":
 				dictAll[s]="DOWN"
-				
+	
+	#Keys are renamed, results are printed
 		dictNew=rename_keys(dictAll, dictRename)
 		for s in dictNew:
 			print(s[0]+" : "+s[1]+"\n")
@@ -220,6 +235,7 @@ def test():
 			print(v1+" : DOWN")
 
 
+#Pseudo Case-switch implementation
 options = {"start" : start,
 		   "stop" : stop,
 		   "test" : test,
