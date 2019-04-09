@@ -101,6 +101,9 @@ def cep_start():
 	# Start CEP
 	os.system("start cmd /c q tick/cep.q -p 5015")
 	time.sleep(1)
+	
+def rename_keys(d, keys):
+	return ([(keys.get(k), v) for k, v in d.items()])
 
 	
 def start():
@@ -142,8 +145,65 @@ def stop():
 						proc.send_signal(SIGTERM)
 	
 		
+
+def test():
+
+	v1=sys.argv[2]
+
+	dictAll =	{5010:"",
+				 5012:"",
+				 5011:"",
+				 5014:"",
+				 5013:"",
+				 5015:"",		
+		}
+		
+	dictRename =	{ 5010:"tickerplant",
+				 5012:"hdb",
+				 5011:"rdb1",
+				 5014:"feedhandler",
+				 5013:"rdb2",
+				 5015:"cep",		
+	}
+	
+	dictSingle =	{"tickerplant": 5010,
+				 "hdb": 5012,
+				 "rdb1": 5011,
+				 "feedhandler":5014,
+				 "rdb2":5013,
+				 "cep":5015		
+	}
+	
+	if v1=="all":
+		for s in dictAll.keys():
+			for proc in process_iter():	
+				for conns in proc.connections(kind='inet'):
+					if conns.laddr[1] == s:
+						dictAll[s]="UP"
+						
+		for s in dictAll.keys():
+			if dictAll[s]=="":
+				dictAll[s]="DOWN"
+				
+		dictNew=rename_keys(dictAll, dictRename)
+		for s in dictNew:
+			print(s[0]+" : "+s[1]+"\n")
+			
+	else:
+		i=0
+		for proc in process_iter():
+			for conns in proc.connections(kind='inet'):
+				if conns.laddr[1] == dictSingle[v1]:
+					print(v1+" : UP")
+					i=1
+		
+		if i==0:
+			print(v1+" : DOWN")
+
+
 options = {"start" : start,
 		   "stop" : stop,
+		   "test" : test,
 	}
 
 	
