@@ -15,9 +15,11 @@ def all_start():
 	
 	DETACHED_PROCESS = 0x00000008
 	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	
+	b=input("Batching mode? **0 for non batching, >0 for batching**: ")
 
 	# Start Tickerplant
-	p = Popen(["q", "tick.q","schema","journal", "-p", "5010"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+	p = Popen(["q", "tick.q","schema","journal", "-p", "5010", "-t", b], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 	# Start HDB
@@ -48,10 +50,11 @@ def tickerplant_start():
 
 	os.chdir(dir)
 
+	b=input("Batching mode? **0 for non batching, >0 for batching**: ")
 	# Start Tickerplant
 	DETACHED_PROCESS = 0x00000008
 	CREATE_NEW_PROCESS_GROUP = 0x00000200
-	p = Popen(["q", "tick.q","schema","journal", "-p", "5010"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+	p = Popen(["q", "tick.q","schema","journal", "-p", "5010", "-t", b], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 def rdb1_start():
