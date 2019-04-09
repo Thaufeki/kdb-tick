@@ -16,7 +16,7 @@ HDB:		 5012
 
 ## Start/Stop Python script
 
-`python start.py [start|stop|test] [tickerplant|rdb1|rdb2|hdb|cep|feedhandler] ` 
+`python start.py [start|stop|test] [tickerplant|rdb1|rdb2|hdb|cep|feedhandler|all] ` 
 
-`**Example**: python start.py start all  # starts all processes`
+E.g: `python start.py start all  # starts all processes`
 
