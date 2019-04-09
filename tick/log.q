@@ -2,6 +2,8 @@
 
 connectionLog:`:connectionLog;
 
+if[not type key connectionLog;.[connectionLog;();:;()]];
+
 conLog::hopen connectionLog
 
 .z.po:{user:string x"userVar";usage:string x".Q.w[][`used]";conLog"Port opened, handle:",(string x),", user:",user,", memory usage:",usage,"\n";};
