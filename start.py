@@ -2,6 +2,7 @@ import time
 import os
 import sys
 import psutil
+from subprocess import PIPE, Popen
 from psutil import process_iter
 from signal import SIGTERM
 
@@ -11,29 +12,32 @@ def all_start():
 	dir=input("Enter tick directory: ")
 
 	os.chdir(dir)
+	
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
 
 	# Start Tickerplant
-	os.system("start cmd /c q tick.q schema journal -p 5010")
+	p = Popen(["q", "tick.q","schema","journal", "-p", "5010"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 	# Start HDB
-	os.system("start cmd /c q hdb -p 5012")
+	p = Popen(["q", "hdb", "-p", "5012"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 	# Start RDB 1
-	os.system("start cmd /c q tick/r.q -p 5011")
+	p = Popen(["q", "tick/r.q", "-p", "5011"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 	# Start RDB 2
-	os.system("start cmd /c q tick/r.q -p 5013")
+	p = Popen(["q", "tick/r.q", "-p", "5013"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
 	# Start CEP
-	os.system("start cmd /c q tick/r.q -p 5015")
+	p = Popen(["q", "tick/r.q","-p", "5015"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
 	# Start feedhandler
-	os.system("start cmd /c q tick/feedhandler.q -p 5014")
+	p = Popen(["q", "tick/feedhandler.q","-p", "5014"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
 	
@@ -45,7 +49,9 @@ def tickerplant_start():
 	os.chdir(dir)
 
 	# Start Tickerplant
-	os.system("start cmd /c q tick.q schema journal -p 5010")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "tick.q","schema","journal", "-p", "5010"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 def rdb1_start():
@@ -55,7 +61,9 @@ def rdb1_start():
 	os.chdir(dir)
 	
 	# Start RDB 1
-	os.system("start cmd /c q tick/r.q -p 5011")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "tick/r.q", "-p", "5011"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 def	rdb2_start():
@@ -66,7 +74,9 @@ def	rdb2_start():
 	os.chdir(dir)
 	
 	# Start RDB 2
-	os.system("start cmd /c q tick/r.q -p 5013")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "tick/r.q", "-p", "5013"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 def hdb_start():
@@ -77,7 +87,9 @@ def hdb_start():
 	os.chdir(dir)
 
 	# Start HDB
-	os.system("start cmd /c q hdb -p 5012")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "hdb", "-p", "5012"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
 def feedhandler_start():
@@ -88,7 +100,9 @@ def feedhandler_start():
 	os.chdir(dir)
 
 	# Start feedhandler
-	os.system("start cmd /c q tick/feedhandler.q -p 5014")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "tick/feedhandler.q","-p", "5014"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 
 def cep_start():
@@ -99,7 +113,9 @@ def cep_start():
 	os.chdir(dir)
 
 	# Start CEP
-	os.system("start cmd /c q tick/cep.q -p 5015")
+	DETACHED_PROCESS = 0x00000008
+	CREATE_NEW_PROCESS_GROUP = 0x00000200
+	p = Popen(["q", "tick/r.q","-p", "5015"], stdin=PIPE, stdout=PIPE, stderr=PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
 	time.sleep(1)
 	
 def rename_keys(d, keys):

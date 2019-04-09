@@ -45,11 +45,11 @@ if[system"t";
  / if[not -16=type first first x;if[d<"d"$a:.z.P;.z.ts[]];a:"n"$a;x:$[0>type first x;a,x;(enlist(count first x)#a),x]];/ Removed,not needed
    $[t=`agg;[delete from t;t insert x];[t insert x;if[l;l enlist (`upd;t;x);j+:1]]];if[l1;l1 enlist (`w;`i)];}];
 
-if[not system"t";system"t 1000";
- .z.ts:{ts .z.D};
+if[not system"t";system"t 60000";
+ .z.ts:{ts .z.D; if[l1;l1 enlist (`w;`i)]};
  upd:{[t;x]ts"d"$a:.z.P;
   / if[not -16=type first first x;a:"n"$a;x:$[0>type first x;a,x;(enlist(count first x)#a),x]]; / Removed, not needed
- f:key flip value t;pub[t;$[0>type first x;enlist f!x;flip f!x]];if[l;l enlist (`upd;t;x);i+:1];if[l1;l1 enlist (`w;`i)];}];
+ f:key flip value t;pub[t;$[0>type first x;enlist f!x;flip f!x]];if[l;l enlist (`upd;t;x);i+:1];}];
 
 \d .
 .u.tick[src;.z.x 1];
