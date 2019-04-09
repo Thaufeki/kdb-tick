@@ -2,8 +2,8 @@
 
 r:get .u.L;
 
-LL:`:tradeLog;
+LL:`:journal/tradeIBMLog;
 if[not type key LL;.[LL;();:;()]];
 ll::hopen LL
 
-{ll enlist x} each r where {`trade in x}each r
+{ll enlist x} each filtered:t where {`IBM.N in x[2][1]} each t:r where {`trade in x}each r

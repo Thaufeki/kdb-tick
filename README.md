@@ -1,17 +1,21 @@
 # Advanced kdb+
 
-Repository for Advanced KDB+ CMTP. Files were originally forked from Kx Systems, and modified to spec.
+Repository for Advanced KDB+ CMTP. Built on kdb tick repository.
 
 
 ## Ports
 
 Tickerplant: 5010  
 
-RDB 1: 		 5011  
+RDB 1:       5011  
 
-RDB 2: 		 5013  
+RDB 2:       5013  
 
-HDB:		 5012  
+HDB:         5012  
+
+CEP:         5015
+
+feedhandler: 5014
 
 
 ## Start/Stop Python script

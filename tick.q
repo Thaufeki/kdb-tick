@@ -25,7 +25,7 @@ system"l tick/",(src:first .z.x,enlist"schema"),".q"   // load schema file
 system"l tick/log.q";
 
 userVar:.z.u;
-
+upd1:insert;
 if[not system"p";system"p 5010"] / test comment
 
 \l tick/u.q
@@ -45,6 +45,8 @@ if[system"t";
  / if[not -16=type first first x;if[d<"d"$a:.z.P;.z.ts[]];a:"n"$a;x:$[0>type first x;a,x;(enlist(count first x)#a),x]];/ Removed,not needed
    $[t=`agg;[delete from t;t insert x];[t insert x;if[l;l enlist (`upd;t;x);j+:1]]];if[l1;l1 enlist (`w;`i)];}];
 
+   
+   
 if[not system"t";system"t 60000";
  .z.ts:{ts .z.D; if[l1;l1 enlist (`w;`i)]};
  upd:{[t;x]ts"d"$a:.z.P;
