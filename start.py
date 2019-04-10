@@ -172,7 +172,10 @@ def stop():
 		for proc in process_iter():
 				for conns in proc.connections(kind='inet'):
 					if conns.laddr[1] == port:
-						proc.send_signal(SIGTERM)
+						try:
+							proc.send_signal(SIGTERM)
+						except psutil.NoSuchProcess:
+							continue
 	
 		
 
