@@ -11,7 +11,7 @@ from signal import SIGTERM
 def all_start():
 
 	# Assuming Python 3
-	dir=input("Enter tick directory: ")
+	dir=input("Enter project directory: ")
 
 	os.chdir(dir)
 
@@ -225,6 +225,8 @@ def test():
 		dictNew=rename_keys(dictAll, dictRename)
 		for s in dictNew:
 			print(s[0]+" : "+s[1]+"\n")
+			
+	# Only one value, so no dict needed, just set flag for print statements
 			
 	else:
 		i=0

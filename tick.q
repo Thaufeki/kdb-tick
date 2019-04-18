@@ -6,6 +6,8 @@ system"l tick/log.q";
 upd:insert;
 userVar:.z.u;
 upd1:insert;
+upd_py:{y[0]:"P"$string y[0]; x insert y}
+upd_java:{[t;x]x:update time:"P"$ string time from x;t insert x}
 if[not system"p";system"p 5010"] / test comment
 
 \l tick/u.q
