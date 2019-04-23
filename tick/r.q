@@ -20,7 +20,7 @@ userVar:.z.u;
 .u.createAgg:{[trade;quote]t1:select maxTrade:max price, tradeVolume:sum size by sym  from trade; t2:select maxBid:max bid, minAsk:min ask ,first time by sym from quote; :`time`sym`maxTrade`maxBid`minAsk`tradeVolume xcols 0!t1 lj t2};
 
 / connect to ticker plant for (schema;(logcount;log))
-if[5011=system"p";.u.rep .(hopen `$":",.u.x 0)"(.u.sub[;`]each `trade`quote;`.u `i`L)"];
+if[5011=system"p";.u.rep .(hopen `$":",.u.x 0)"(.u.sub[;`]each `trade`quote;`.u `i`L)";.z.ws:{neg[.z.w].Q.s value x;};activeWSConnections: ([] handle:(); connectTime:());.z.wo:{`activeWSConnections upsert (x;.z.t)};.z.wc:{ delete from `activeWSConnections where handle =x};];
 if[5013=system"p";upd:{[t;x]$[t=`agg;[delete from t;t insert x];t insert x]};.u.rep .(hopen `$":",.u.x 0)"(.u.sub[`agg;`];`.u `i`L)"];
 
 if[5015=system"p";
