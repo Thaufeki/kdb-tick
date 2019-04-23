@@ -8,4 +8,6 @@ if[f like "*quote*";tflag:0b;colTypes:"psffjjs"];
 
 data:(colTypes;enlist ",") 0: file;
 
-$[tflag;h("upd1";`trade;data);h("upd1";`quote;data)]
+$[tflag;h("upd1";`trade;data);h("upd1";`quote;data)];
+
+exit[0]
