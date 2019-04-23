@@ -10,3 +10,6 @@ conLog::hopen connectionLog
 
 .z.pc:{user:string x"userVar";usage:string x".Q.w[][`used]";conLog"Port closed, handle:",(string x),", user:",user,", memory usage:",usage,"\n";};
 
+errorLog:`:errorLog;
+
+.sys.logError:{if[not type key errorLog;.[errorLog;();:;()]];(errLog:hopen errorLog);errLog x;hclose errLog};
